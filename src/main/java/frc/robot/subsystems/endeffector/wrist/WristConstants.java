@@ -6,5 +6,7 @@ package frc.robot.subsystems.endeffector.wrist;
 
 /** Add your docs here. */
 public final class WristConstants {
-  public static final int WristMotorID = 0;
+  public static final int WristMotorID = 11;
+
+  public static final double WristRunValue = 0.15;
 }

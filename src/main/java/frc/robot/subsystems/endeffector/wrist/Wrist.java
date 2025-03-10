@@ -8,8 +8,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wrist extends SubsystemBase {
 
+  WristBase wrist;
+
   /** Creates a new Wrist. */
-  public Wrist(WristBase wrist) {}
+  public Wrist(WristBase wrist) {
+    this.wrist = wrist;
+  }
+
+  public void RotateWrist(double value){
+    wrist.rotateWrist(value);
+  }
+
+  public void StopWrist(){
+    wrist.stopWrist();
+  }
+
+  public double GetAngle(){
+    return 0.0;
+  }
 
   @Override
   public void periodic() {

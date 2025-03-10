@@ -10,9 +10,17 @@ public class EndEffectorCommands {
 
   // Wrist commands
 
+  public static Command StopWrist(Wrist wrist){
+    return Commands.run(()->{
+      wrist.StopWrist();
+    },wrist);
+  }
+
   // Manual control (Wrist)
   public static Command RotateWrist(Wrist wrist, double value) {
-    return Commands.run(() -> {}, wrist);
+    return Commands.run(() -> {
+      wrist.RotateWrist(value);
+    }, wrist);
   }
 
   // Rotate To position (Wrist)
@@ -23,6 +31,17 @@ public class EndEffectorCommands {
   // Intake commands (should be configured to run
   // both in auto and teleop)
   public static Command RunIntake(Intake intake, double value) {
-    return Commands.run(() -> {}, intake);
+    return Commands.run(() -> {
+      intake.RunIntake(value);
+    }, intake);
+  }
+
+  public static Command StopIntake(Intake intake){
+    return Commands.run(
+      ()->{
+        intake.StopIntake();
+      }
+      ,intake
+    );
   }
 }

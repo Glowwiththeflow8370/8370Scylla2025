@@ -15,6 +15,14 @@ public class Intake extends SubsystemBase {
     this.intake = intake;
   }
 
+  public void RunIntake(double value){
+    intake.runIntake(value);
+  }
+
+  public void StopIntake(){
+    intake.stopIntake();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

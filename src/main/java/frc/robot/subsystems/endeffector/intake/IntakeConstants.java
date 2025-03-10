@@ -6,6 +6,8 @@ package frc.robot.subsystems.endeffector.intake;
 
 /** Add your docs here. */
 public final class IntakeConstants {
-  public static final int IntakeMotorID = 0;
-  public static final int IntakeMotorFollowerID = 0;
+  public static final int IntakeMotorID = 12;
+  public static final int IntakeMotorFollowerID = 13;
+
+  public static final double IntakeRunValue = 0.7;
 }

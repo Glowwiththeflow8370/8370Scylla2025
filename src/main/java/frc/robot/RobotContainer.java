@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.ClimbCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorCommands;
+import frc.robot.commands.EndEffectorCommands;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.climb.ClimbBase;
 import frc.robot.subsystems.climb.SimClimb;
@@ -38,12 +39,14 @@ import frc.robot.subsystems.elevator.SimElevator;
 import frc.robot.subsystems.elevator.TalonFXElevator;
 import frc.robot.subsystems.endeffector.intake.Intake;
 import frc.robot.subsystems.endeffector.intake.IntakeBase;
+import frc.robot.subsystems.endeffector.intake.IntakeConstants;
 import frc.robot.subsystems.endeffector.intake.SimIntake;
 import frc.robot.subsystems.endeffector.intake.SparkFlexIntake;
 import frc.robot.subsystems.endeffector.wrist.SimWrist;
 import frc.robot.subsystems.endeffector.wrist.SparkMaxWrist;
 import frc.robot.subsystems.endeffector.wrist.Wrist;
 import frc.robot.subsystems.endeffector.wrist.WristBase;
+import frc.robot.subsystems.endeffector.wrist.WristConstants;
 import frc.robot.util.OperatorConsts;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -134,13 +137,22 @@ public class RobotContainer {
     // default commands for other subsystems
     climb.setDefaultCommand(ClimbCommands.StopClimb(climb));
     elevator.setDefaultCommand(ElevatorCommands.StopElevator(elevator));
+    intake.setDefaultCommand(EndEffectorCommands.StopIntake(intake));
 
     // Controller configs (main driver)
+
+    // Elevator Buttons
     controller.pov(180).whileTrue(ElevatorCommands.RunElevator(elevator, 0.15));
     controller.pov(0).whileTrue(ElevatorCommands.RunElevator(elevator, -0.15));
-
+    // Climb Buttons
     controller.triangle().whileTrue(ClimbCommands.RunClimb(climb, 0.15));
     controller.cross().whileTrue(ClimbCommands.RunClimb(climb, -0.15));
+    // Wrist Buttons
+    controller.L1().whileTrue(EndEffectorCommands.RotateWrist(wrist, WristConstants.WristRunValue));
+    controller.R1().whileTrue(EndEffectorCommands.RotateWrist(wrist, -WristConstants.WristRunValue));
+    // Intake Commands
+    controller.R1().whileTrue(EndEffectorCommands.RunIntake(intake, IntakeConstants.IntakeRunValue));
+    controller.L2().whileTrue(EndEffectorCommands.RunIntake(intake, -IntakeConstants.IntakeRunValue));
     // Controller configs (button box)
   }
 
