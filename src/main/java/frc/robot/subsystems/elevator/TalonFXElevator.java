@@ -7,6 +7,7 @@ package frc.robot.subsystems.elevator;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.Angle;
@@ -18,6 +19,8 @@ public class TalonFXElevator implements ElevatorBase {
 
   StatusSignal<Angle> elevatorEncoder;
   double elevatorEncoderValue;
+
+  VoltageOut voltageRequest;
 
   public TalonFXElevator() {
     elevatorMotor = new TalonFX(ElevatorConstants.elevatorMotorID);
@@ -32,8 +35,11 @@ public class TalonFXElevator implements ElevatorBase {
     elevatorMotor.setNeutralMode(NeutralModeValue.Brake);
     elevatorMotorFollower.setNeutralMode(NeutralModeValue.Brake);
 
+    elevatorEncoder = elevatorMotor.getPosition();
     // Set the starting angle of the elevator
     elevatorEncoderValue = elevatorEncoder.getValueAsDouble();
+
+    voltageRequest = new VoltageOut(0.0);
   }
 
   // Refer to the ElevatorBase class for more information
@@ -49,7 +55,12 @@ public class TalonFXElevator implements ElevatorBase {
   }
 
   @Override
+  public void setVoltage(double Volts) {
+    elevatorMotor.setControl(voltageRequest.withOutput(Volts));
+  }
+
+  @Override
   public double getElevatorEncoderValues() {
-    return elevatorEncoderValue;
+    return elevatorEncoderValue * 360;
   }
 }

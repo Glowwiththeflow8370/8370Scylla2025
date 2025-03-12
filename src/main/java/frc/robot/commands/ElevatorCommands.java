@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.util.Setpoints;
 
 public class ElevatorCommands {
   public ElevatorCommands() {}
@@ -24,7 +25,17 @@ public class ElevatorCommands {
         elevator);
   }
 
-  public static Command ElevateToPosition(Elevator elevator) {
-    return Commands.runOnce(() -> {}, elevator);
+  public static Command ElevateToPosition(Elevator elevator, Setpoints setpoints) {
+    return Commands.runOnce(
+        () -> {
+          if (elevator.getEncoderValues() < setpoints.getElevatorPos()) {
+            elevator.RunElevator(0.15);
+          } else if (elevator.getEncoderValues() > setpoints.getElevatorPos()) {
+            elevator.RunElevator(-0.15);
+          } else {
+            elevator.RunElevator(0);
+          }
+        },
+        elevator);
   }
 }

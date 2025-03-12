@@ -17,6 +17,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.ClimbCommands;
@@ -67,6 +68,8 @@ public class RobotContainer {
   // Controller
   private final CommandPS4Controller controller =
       new CommandPS4Controller(OperatorConsts.PS4DriverPort);
+
+  private final CommandGenericHID buttonBox = new CommandGenericHID(1);
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -138,6 +141,7 @@ public class RobotContainer {
     climb.setDefaultCommand(ClimbCommands.StopClimb(climb));
     elevator.setDefaultCommand(ElevatorCommands.StopElevator(elevator));
     intake.setDefaultCommand(EndEffectorCommands.StopIntake(intake));
+    wrist.setDefaultCommand(EndEffectorCommands.StopWrist(wrist));
 
     // Controller configs (main driver)
 
@@ -149,11 +153,21 @@ public class RobotContainer {
     controller.cross().whileTrue(ClimbCommands.RunClimb(climb, -0.15));
     // Wrist Buttons
     controller.L1().whileTrue(EndEffectorCommands.RotateWrist(wrist, WristConstants.WristRunValue));
-    controller.R1().whileTrue(EndEffectorCommands.RotateWrist(wrist, -WristConstants.WristRunValue));
+    controller
+        .R1()
+        .whileTrue(EndEffectorCommands.RotateWrist(wrist, -WristConstants.WristRunValue));
     // Intake Commands
-    controller.R1().whileTrue(EndEffectorCommands.RunIntake(intake, IntakeConstants.IntakeRunValue));
-    controller.L2().whileTrue(EndEffectorCommands.RunIntake(intake, -IntakeConstants.IntakeRunValue));
+    controller
+        .R2()
+        .whileTrue(EndEffectorCommands.RunIntake(intake, IntakeConstants.IntakeRunValue));
+    controller
+        .L2()
+        .whileTrue(EndEffectorCommands.RunIntake(intake, -IntakeConstants.IntakeRunValue));
     // Controller configs (button box)
+
+    // Careful using these, the wristToPosition and elevatorToPosition may not work
+    // buttonBox.button(3).whileTrue(EndEffectorCommands.WristToPosition(wrist, Setpoints.SOURCE));
+    // buttonBox.button(4).whileTrue(EndEffectorCommands.WristToPosition(wrist, Setpoints.L1_REEF));
   }
 
   /**

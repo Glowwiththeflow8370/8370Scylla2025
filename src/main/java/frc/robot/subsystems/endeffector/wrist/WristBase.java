@@ -2,8 +2,11 @@ package frc.robot.subsystems.endeffector.wrist;
 
 public interface WristBase {
 
-    public default void rotateWrist(double value){}
-    public default void stopWrist(){}
+  public default void rotateWrist(double value) {}
 
-    public default double getWristAngle(){return 0.0;}
+  public default void stopWrist() {}
+
+  public default double getWristAngle() {
+    return 0.0;
+  }
 }

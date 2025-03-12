@@ -15,11 +15,11 @@ public class Intake extends SubsystemBase {
     this.intake = intake;
   }
 
-  public void RunIntake(double value){
+  public void RunIntake(double value) {
     intake.runIntake(value);
   }
 
-  public void StopIntake(){
+  public void StopIntake() {
     intake.stopIntake();
   }
 

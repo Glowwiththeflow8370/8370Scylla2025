@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.endeffector.wrist;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wrist extends SubsystemBase {
@@ -15,20 +16,21 @@ public class Wrist extends SubsystemBase {
     this.wrist = wrist;
   }
 
-  public void RotateWrist(double value){
+  public void RotateWrist(double value) {
     wrist.rotateWrist(value);
   }
 
-  public void StopWrist(){
+  public void StopWrist() {
     wrist.stopWrist();
   }
 
-  public double GetAngle(){
+  public double GetAngle() {
     return 0.0;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Wrist angle", wrist.getWristAngle());
   }
 }

@@ -24,10 +24,10 @@ public class DriveConstants {
 
   // Device CAN IDs
   //   public static final int pigeonCanId = 1;
-  public static final int leftLeaderCanId = 3;
+  public static final int leftLeaderCanId = 4;
   public static final int leftFollowerCanId = 2;
-  public static final int rightLeaderCanId = 2;
-  public static final int rightFollowerCanId = 4;
+  public static final int rightLeaderCanId = 3;
+  public static final int rightFollowerCanId = 1;
 
   // Motor configuration
   public static final int currentLimit = 60;
@@ -35,7 +35,7 @@ public class DriveConstants {
   public static final double motorReduction = 0.1018;
   public static final boolean leftInverted = false;
   public static final boolean rightInverted = true;
-  public static final DCMotor gearbox = DCMotor.getCIM(2);
+  public static final DCMotor gearbox = DCMotor.getKrakenX60(2);
 
   // Velocity PID configuration
   public static final double realKp = 0.0;
@@ -45,8 +45,8 @@ public class DriveConstants {
 
   public static final double simKp = 0.05;
   public static final double simKd = 0.0;
-  public static final double simKs = 0.0;
-  public static final double simKv = 0.227;
+  public static final double simKs = 0.00889;
+  public static final double simKv = 0.22651;
 
   // PathPlanner configuration
   public static final double robotMassKg = 74.088;

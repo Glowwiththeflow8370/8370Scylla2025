@@ -1,20 +1,24 @@
 package frc.robot.subsystems.endeffector.wrist;
 
 public class SimWrist implements WristBase {
-  public SimWrist() {}
+
+  private double testAngle;
+
+  public SimWrist() {
+    testAngle = 0;
+  }
 
   @Override
   public void rotateWrist(double value) {
     System.out.println("rotating wrist");
+    testAngle++;
   }
 
   @Override
-  public void stopWrist() {
-    
-  }
+  public void stopWrist() {}
 
   @Override
   public double getWristAngle() {
-    return 0.0;
+    return testAngle;
   }
 }

@@ -8,6 +8,7 @@ public interface IntakeBase {
   // - Enableing of robot simulation
   // and maybe even robot replay (but that is
   // above my paygrade atm)
-  public default void runIntake(double value){}
-  public default void stopIntake(){}
+  public default void runIntake(double value) {}
+
+  public default void stopIntake() {}
 }

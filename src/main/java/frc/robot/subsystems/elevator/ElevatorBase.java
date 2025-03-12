@@ -19,6 +19,8 @@ public interface ElevatorBase {
 
   public default void stopElevator() {}
 
+  public default void setVoltage(double Volts) {}
+
   public default double getElevatorEncoderValues() {
     return 0.0;
   }
