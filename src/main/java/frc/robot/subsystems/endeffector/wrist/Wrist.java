@@ -5,7 +5,10 @@
 package frc.robot.subsystems.endeffector.wrist;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.function.DoubleSupplier;
 
 public class Wrist extends SubsystemBase {
 
@@ -26,6 +29,15 @@ public class Wrist extends SubsystemBase {
 
   public double GetAngle() {
     return 0.0;
+  }
+
+  public Command manualWrist(Wrist wrist, DoubleSupplier value) {
+    return Commands.run(
+        () -> {
+          System.out.println("Wrist run value: " + value.getAsDouble());
+          wrist.RotateWrist(value.getAsDouble());
+        },
+        wrist);
   }
 
   @Override

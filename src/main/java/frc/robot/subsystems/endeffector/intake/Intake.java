@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems.endeffector.intake;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.function.DoubleSupplier;
 
 public class Intake extends SubsystemBase {
 
@@ -21,6 +24,15 @@ public class Intake extends SubsystemBase {
 
   public void StopIntake() {
     intake.stopIntake();
+  }
+
+  public Command manualIntake(Intake intake, DoubleSupplier value) {
+    return Commands.run(
+        () -> {
+          System.out.println("Intake run value: " + value.getAsDouble());
+          intake.RunIntake(value.getAsDouble());
+        },
+        intake);
   }
 
   @Override

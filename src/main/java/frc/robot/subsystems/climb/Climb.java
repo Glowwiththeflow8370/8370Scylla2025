@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems.climb;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.function.DoubleSupplier;
 
 public class Climb extends SubsystemBase {
 
@@ -15,7 +18,7 @@ public class Climb extends SubsystemBase {
     this.climb = climb;
   }
 
-  public void runClimb() {
+  public void runClimb(double value) {
     climb.runClimb(0.15);
   }
 
@@ -25,6 +28,15 @@ public class Climb extends SubsystemBase {
 
   public double getAngle() {
     return climb.getClimbAngle();
+  }
+
+  public Command manualClimb(Climb climb, DoubleSupplier value) {
+    return Commands.run(
+        () -> {
+          System.out.println("Climb run value: " + value.getAsDouble());
+          climb.runClimb(value.getAsDouble());
+        },
+        climb);
   }
 
   @Override

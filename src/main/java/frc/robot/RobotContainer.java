@@ -20,12 +20,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.commands.ClimbCommands;
 import frc.robot.commands.DriveCommands;
-import frc.robot.commands.ElevatorCommands;
-import frc.robot.commands.EndEffectorCommands;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.climb.ClimbBase;
+import frc.robot.subsystems.climb.ClimbConstants;
 import frc.robot.subsystems.climb.SimClimb;
 import frc.robot.subsystems.climb.SparkMaxClimb;
 import frc.robot.subsystems.drive.Drive;
@@ -36,6 +34,7 @@ import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIONavX;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorBase;
+import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.SimElevator;
 import frc.robot.subsystems.elevator.TalonFXElevator;
 import frc.robot.subsystems.endeffector.intake.Intake;
@@ -138,32 +137,43 @@ public class RobotContainer {
         DriveCommands.arcadeDrive(
             drive, () -> -controller.getLeftY(), () -> -controller.getRightX()));
     // default commands for other subsystems
-    climb.setDefaultCommand(ClimbCommands.StopClimb(climb));
-    elevator.setDefaultCommand(ElevatorCommands.StopElevator(elevator));
-    intake.setDefaultCommand(EndEffectorCommands.StopIntake(intake));
-    wrist.setDefaultCommand(EndEffectorCommands.StopWrist(wrist));
+    // Remembering ternary operators at 11:26 PM
+    // Literally almost midnight
+    // Please work tmr aaaa
 
-    // Controller configs (main driver)
+    // Reference the commented print statements found in each
+    // command method
 
-    // Elevator Buttons
-    controller.pov(180).whileTrue(ElevatorCommands.RunElevator(elevator, 0.15));
-    controller.pov(0).whileTrue(ElevatorCommands.RunElevator(elevator, -0.15));
-    // Climb Buttons
-    controller.triangle().whileTrue(ClimbCommands.RunClimb(climb, 0.15));
-    controller.cross().whileTrue(ClimbCommands.RunClimb(climb, -0.15));
-    // Wrist Buttons
-    controller.L1().whileTrue(EndEffectorCommands.RotateWrist(wrist, WristConstants.WristRunValue));
-    controller
-        .R1()
-        .whileTrue(EndEffectorCommands.RotateWrist(wrist, -WristConstants.WristRunValue));
-    // Intake Commands
-    controller
-        .R2()
-        .whileTrue(EndEffectorCommands.RunIntake(intake, IntakeConstants.IntakeRunValue));
-    controller
-        .L2()
-        .whileTrue(EndEffectorCommands.RunIntake(intake, -IntakeConstants.IntakeRunValue));
-    // Controller configs (button box)
+    climb.setDefaultCommand(
+        climb.manualClimb(
+            climb,
+            () ->
+                controller.triangle().getAsBoolean()
+                    ? ClimbConstants.climbRunValue
+                    : controller.cross().getAsBoolean() ? -ClimbConstants.climbRunValue : 0));
+    elevator.setDefaultCommand(
+        elevator.manualElevator(
+            elevator,
+            () ->
+                controller.pov(0).getAsBoolean()
+                    ? ElevatorConstants.elevatorRunValue
+                    : controller.pov(180).getAsBoolean()
+                        ? -ElevatorConstants.elevatorRunValue
+                        : 0));
+    intake.setDefaultCommand(
+        intake.manualIntake(
+            intake,
+            () ->
+                controller.L2().getAsBoolean()
+                    ? IntakeConstants.IntakeRunValue
+                    : controller.R2().getAsBoolean() ? -IntakeConstants.IntakeRunValue : 0));
+    wrist.setDefaultCommand(
+        wrist.manualWrist(
+            wrist,
+            () ->
+                controller.L1().getAsBoolean()
+                    ? WristConstants.WristRunValue
+                    : controller.L2().getAsBoolean() ? -WristConstants.WristRunValue : 0));
 
     // Careful using these, the wristToPosition and elevatorToPosition may not work
     // buttonBox.button(3).whileTrue(EndEffectorCommands.WristToPosition(wrist, Setpoints.SOURCE));

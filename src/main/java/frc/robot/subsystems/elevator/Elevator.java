@@ -7,9 +7,12 @@ package frc.robot.subsystems.elevator;
 import static edu.wpi.first.units.Units.Volts;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.util.LoggedTunableNumber;
+import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 public class Elevator extends SubsystemBase {
@@ -55,5 +58,14 @@ public class Elevator extends SubsystemBase {
 
   public void StopElevator() {
     elevator.stopElevator();
+  }
+
+  public Command manualElevator(Elevator elevator, DoubleSupplier value) {
+    return Commands.run(
+        () -> {
+          System.out.println("elevator run value: " + value.getAsDouble());
+          elevator.RunElevator(value.getAsDouble());
+        },
+        elevator);
   }
 }

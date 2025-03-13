@@ -8,4 +8,6 @@ package frc.robot.subsystems.climb;
 public final class ClimbConstants {
   public static final int climbMotorID = 5;
   public static final int climbMotorFollower = 6;
+
+  public static final double climbRunValue = 0.15;
 }
