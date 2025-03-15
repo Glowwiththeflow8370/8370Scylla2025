@@ -19,7 +19,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 
 public class DriveConstants {
-  public static final double maxSpeedMetersPerSec = 3.6;
+  public static final double maxSpeedMetersPerSec = 6;
   public static final double trackWidth = Units.inchesToMeters(24.3125);
 
   // Device CAN IDs
@@ -30,7 +30,7 @@ public class DriveConstants {
   public static final int rightFollowerCanId = 1;
 
   // Motor configuration
-  public static final int currentLimit = 60;
+  public static final int currentLimit = 80;
   public static final double wheelRadiusMeters = Units.inchesToMeters(3.0);
   public static final double motorReduction = 0.1018;
   public static final boolean leftInverted = false;

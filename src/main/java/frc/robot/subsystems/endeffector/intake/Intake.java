@@ -35,6 +35,14 @@ public class Intake extends SubsystemBase {
         intake);
   }
 
+  public Command RunIntakeCommand(Intake intake, DoubleSupplier value) {
+    return Commands.run(
+        () -> {
+          intake.RunIntake(value.getAsDouble());
+        },
+        intake);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

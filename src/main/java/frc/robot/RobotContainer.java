@@ -104,12 +104,22 @@ public class RobotContainer {
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
+    // Basic Auto Drive
+    autoChooser.addOption(
+        "Manual Auto Drive", DriveCommands.BasicDrive(drive, 0.5, 0).withTimeout(0.7));
+
     // Manual Auto (L1 Score)
     autoChooser.addOption(
         "Manual L1 Auto",
         new SequentialCommandGroup(
             DriveCommands.BasicDrive(drive, 0.5, 0)
-            /*.andThen(wrist.posWrist(wrist, 100.0).alongWith(elevator.posElevator(elevator, 1450.0)))*/ ));
+                .andThen(DriveCommands.BasicDrive(drive, 0, 0).withTimeout(0.5)),
+            wrist
+                .posWrist(wrist, 100.0)
+                .alongWith(elevator.posElevator(elevator, 1450.0))
+                .withTimeout(2),
+            intake.RunIntakeCommand(intake, () -> IntakeConstants.OutTakeRunValue).withTimeout(0.5),
+            DriveCommands.BasicDrive(drive, -0.2, 0).withTimeout(0.5)));
     // Manual Auto (L4 Score?)
 
     // Set up SysId routines
@@ -164,7 +174,7 @@ public class RobotContainer {
                 controller.leftBumper().getAsBoolean()
                     ? IntakeConstants.IntakeRunValue
                     : controller.rightBumper().getAsBoolean()
-                        ? -IntakeConstants.IntakeRunValue
+                        ? -IntakeConstants.OutTakeRunValue
                         : 0));
     wrist.setDefaultCommand(wrist.posWrist(wrist, 35.0));
 
