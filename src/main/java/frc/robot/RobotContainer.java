@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -103,6 +104,14 @@ public class RobotContainer {
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+
+    // Manual Auto (L1 Score)
+    autoChooser.addOption(
+        "Manual L1 Auto",
+        new SequentialCommandGroup(
+            DriveCommands.BasicDrive(drive, 0.5, 0)
+            /*.andThen(wrist.posWrist(wrist, 100.0).alongWith(elevator.posElevator(elevator, 1450.0)))*/ ));
+    // Manual Auto (L4 Score?)
 
     // Set up SysId routines
     autoChooser.addOption(

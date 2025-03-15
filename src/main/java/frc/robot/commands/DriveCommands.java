@@ -55,6 +55,17 @@ public class DriveCommands {
         drive);
   }
 
+  public static Command BasicDrive(Drive drive, double x, double z) {
+    return Commands.run(
+            () -> {
+              var speeds = DifferentialDrive.arcadeDriveIK(x, z, false);
+              drive.runClosedLoop(
+                  speeds.left * maxSpeedMetersPerSec, speeds.right * maxSpeedMetersPerSec);
+            },
+            drive)
+        .withTimeout(1);
+  }
+
   /** Measures the velocity feedforward constants for the drive. */
   public static Command feedforwardCharacterization(Drive drive) {
     List<Double> velocitySamples = new LinkedList<>();
