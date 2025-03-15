@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.climb.Climb;
-import frc.robot.subsystems.climb.ClimbBase;
 import frc.robot.subsystems.climb.ClimbConstants;
 import frc.robot.subsystems.climb.SimClimb;
 import frc.robot.subsystems.climb.SparkMaxClimb;
@@ -95,7 +94,7 @@ public class RobotContainer {
       default:
         // Replayed robot, disable IO implementations
         drive = new Drive(new DriveIO() {}, new GyroIO() {});
-        climb = new Climb(new ClimbBase() {});
+        climb = new Climb(new SparkMaxClimb() {});
         elevator = new Elevator(new ElevatorBase() {});
         intake = new Intake(new IntakeBase() {});
         wrist = new Wrist(new SparkMaxWrist() {});
@@ -190,7 +189,7 @@ public class RobotContainer {
     // for testing sourc
     buttonBox
         .button(7)
-        .whileTrue(wrist.posWrist(wrist, 80.0).alongWith(elevator.posElevator(elevator, 4000.0)));
+        .whileTrue(wrist.posWrist(wrist, 80.0).alongWith(elevator.posElevator(elevator, 4350.0)));
 
     // L1
     buttonBox

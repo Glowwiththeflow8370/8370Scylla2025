@@ -38,7 +38,7 @@ public class Wrist extends SubsystemBase {
   public Command manualWrist(Wrist wrist, DoubleSupplier value) {
     return Commands.run(
         () -> {
-          System.out.println("Wrist run value: " + value.getAsDouble());
+          // System.out.println("Wrist run value: " + value.getAsDouble());
           wrist.RotateWrist(value.getAsDouble());
         },
         wrist);

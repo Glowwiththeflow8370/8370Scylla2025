@@ -72,7 +72,7 @@ public class Elevator extends SubsystemBase {
   public Command manualElevator(Elevator elevator, DoubleSupplier value) {
     return Commands.run(
         () -> {
-          System.out.println("elevator run value: " + value.getAsDouble());
+          // System.out.println("elevator run value: " + value.getAsDouble());
           elevator.RunElevator(value.getAsDouble());
         },
         elevator);

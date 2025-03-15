@@ -25,7 +25,7 @@ public class SparkMaxClimb implements ClimbBase {
 
     climbMotorFollowerConfig = new SparkMaxConfig();
     climbMotorFollowerConfig.idleMode(IdleMode.kBrake);
-    climbMotorFollowerConfig.follow(climbMotor);
+    climbMotorFollowerConfig.follow(climbMotor, true);
 
     // Apply configurations
     climbMotor.configure(

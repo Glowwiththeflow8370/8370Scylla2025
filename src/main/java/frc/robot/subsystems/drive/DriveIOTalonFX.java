@@ -57,7 +57,7 @@ public class DriveIOTalonFX implements DriveIO {
     var config = new TalonFXConfiguration();
     config.CurrentLimits.SupplyCurrentLimit = currentLimit;
     config.CurrentLimits.SupplyCurrentLimitEnable = true;
-    config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    config.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     config.Feedback.SensorToMechanismRatio = motorReduction;
     config.Slot0.kP = realKp;
     config.Slot0.kD = realKd;

@@ -18,8 +18,8 @@ public class Climb extends SubsystemBase {
     this.climb = climb;
   }
 
-  public void runClimb(double value) {
-    climb.runClimb(0.15);
+  public void RunClimb(double value) {
+    climb.runClimb(value);
   }
 
   public void stopClimb() {
@@ -33,8 +33,8 @@ public class Climb extends SubsystemBase {
   public Command manualClimb(Climb climb, DoubleSupplier value) {
     return Commands.run(
         () -> {
-          System.out.println("Climb run value: " + value.getAsDouble());
-          climb.runClimb(value.getAsDouble());
+          // System.out.println("Climb run value: " + value.getAsDouble());
+          climb.RunClimb(value.getAsDouble());
         },
         climb);
   }
