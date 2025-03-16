@@ -6,7 +6,7 @@ public class SimClimb implements ClimbBase {
 
   @Override
   public void runClimb(double value) {
-    System.out.println("running climb");
+    // System.out.println("running climb");
   }
 
   @Override

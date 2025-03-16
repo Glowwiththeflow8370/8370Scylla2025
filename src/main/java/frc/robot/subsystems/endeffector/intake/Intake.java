@@ -38,6 +38,7 @@ public class Intake extends SubsystemBase {
   public Command RunIntakeCommand(Intake intake, DoubleSupplier value) {
     return Commands.run(
         () -> {
+          // System.out.println("running intake");
           intake.RunIntake(value.getAsDouble());
         },
         intake);

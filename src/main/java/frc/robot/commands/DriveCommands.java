@@ -58,6 +58,7 @@ public class DriveCommands {
   public static Command BasicDrive(Drive drive, double x, double z) {
     return Commands.run(
         () -> {
+          // System.out.println("driving");
           var speeds = DifferentialDrive.arcadeDriveIK(x, z, false);
           drive.runClosedLoop(
               speeds.left * maxSpeedMetersPerSec, speeds.right * maxSpeedMetersPerSec);

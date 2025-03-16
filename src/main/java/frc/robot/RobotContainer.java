@@ -112,13 +112,11 @@ public class RobotContainer {
     autoChooser.addOption(
         "Manual L1 Auto",
         new SequentialCommandGroup(
-            DriveCommands.BasicDrive(drive, 0.5, 0)
-                .andThen(DriveCommands.BasicDrive(drive, 0, 0).withTimeout(0.5)),
-            wrist
-                .posWrist(wrist, 100.0)
-                .alongWith(elevator.posElevator(elevator, 1450.0))
-                .withTimeout(2),
-            intake.RunIntakeCommand(intake, () -> IntakeConstants.OutTakeRunValue).withTimeout(0.5),
+            DriveCommands.BasicDrive(drive, 0.5, 0).withTimeout(0.7),
+            DriveCommands.BasicDrive(drive, 0, 0).withTimeout(0),
+            (wrist.posWrist(wrist, 100.0).alongWith(elevator.posElevator(elevator, 1450.0)))
+                .withTimeout(1),
+            intake.RunIntakeCommand(intake, () -> IntakeConstants.OutTakeRunValue).withTimeout(3),
             DriveCommands.BasicDrive(drive, -0.2, 0).withTimeout(0.5)));
     // Manual Auto (L4 Score?)
 
