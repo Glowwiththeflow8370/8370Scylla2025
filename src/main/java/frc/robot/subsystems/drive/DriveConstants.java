@@ -32,7 +32,7 @@ public class DriveConstants {
   // Motor configuration
   public static final int currentLimit = 80;
   public static final double wheelRadiusMeters = Units.inchesToMeters(3.0);
-  public static final double motorReduction = 0.1018;
+  public static final double motorReduction = 10.75;
   public static final boolean leftInverted = false;
   public static final boolean rightInverted = true;
   public static final DCMotor gearbox = DCMotor.getKrakenX60(2);
@@ -49,9 +49,9 @@ public class DriveConstants {
   public static final double simKv = 0.22651;
 
   // PathPlanner configuration
-  public static final double robotMassKg = 74.088;
+  public static final double robotMassKg = 49.4415683;
   public static final double robotMOI = 6.883;
-  public static final double wheelCOF = 1.2;
+  public static final double wheelCOF = 1.1;
   public static final RobotConfig ppConfig =
       new RobotConfig(
           robotMassKg,

@@ -10,6 +10,7 @@ public interface ClimbBase {
   public default void runClimb(double value) {}
 
   public default void stopClimb() {}
+
   // Get the angle of the climb
   public default double getClimbAngle() {
     return 0.0;

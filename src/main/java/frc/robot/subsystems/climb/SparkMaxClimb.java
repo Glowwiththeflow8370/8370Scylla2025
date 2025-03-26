@@ -6,11 +6,19 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 
 public class SparkMaxClimb implements ClimbBase {
 
   private SparkMax climbMotor, climbMotorFollower;
   private SparkMaxConfig climbMotorConfig, climbMotorFollowerConfig;
+
+  // Considering the angle of motion is similar
+  // to the wrist, imma try to use code
+  // similar to it
+
+  // PID controller
+  ProfiledPIDController profiledPIDController;
 
   public SparkMaxClimb() {
     // Create and configure the climb motors
