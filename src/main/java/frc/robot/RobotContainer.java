@@ -45,6 +45,7 @@ import frc.robot.subsystems.endeffector.intake.SparkFlexIntake;
 import frc.robot.subsystems.endeffector.wrist.SparkMaxWrist;
 import frc.robot.subsystems.endeffector.wrist.Wrist;
 import frc.robot.util.OperatorConsts;
+import frc.robot.util.Setpoints;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -172,7 +173,7 @@ public class RobotContainer {
                 controller.y().getAsBoolean()
                     ? ClimbConstants.climbRunValue
                     : controller.b().getAsBoolean() ? -ClimbConstants.climbRunValue : 0));
-    elevator.setDefaultCommand(elevator.posElevator(elevator, 6000.0));
+    elevator.setDefaultCommand(elevator.posElevator(elevator, Setpoints.IDLE.getElevatorPos()));
     intake.setDefaultCommand(
         intake.manualIntake(
             intake,
@@ -182,7 +183,7 @@ public class RobotContainer {
                     : controller.rightBumper().getAsBoolean()
                         ? -IntakeConstants.OutTakeRunValue
                         : 0));
-    wrist.setDefaultCommand(wrist.posWrist(wrist, 35.0));
+    wrist.setDefaultCommand(wrist.posWrist(wrist, Setpoints.IDLE.getWristPos()));
 
     // Careful using these, the wristToPosition and elevatorToPosition may not work
     // controller.a().whileTrue(elevator.posElevator(elevator, -1000.0));
@@ -190,27 +191,42 @@ public class RobotContainer {
     // L3
     buttonBox
         .button(17)
-        .whileTrue(wrist.posWrist(wrist, 166.0).alongWith(elevator.posElevator(elevator, 9000.0)));
+        .whileTrue(
+            wrist
+                .posWrist(wrist, Setpoints.L3_REEF.getWristPos())
+                .alongWith(elevator.posElevator(elevator, Setpoints.L3_REEF.getElevatorPos())));
     controller.pov(270).whileTrue(wrist.posWrist(wrist, 100.0));
     // L2
     buttonBox
         .button(25)
-        .whileTrue(wrist.posWrist(wrist, 166.0).alongWith(elevator.posElevator(elevator, 5750.0)));
+        .whileTrue(
+            wrist
+                .posWrist(wrist, Setpoints.L2_REEF.getWristPos())
+                .alongWith(elevator.posElevator(elevator, Setpoints.L2_REEF.getElevatorPos())));
 
     controller.start().whileTrue(new InstantCommand(() -> elevator.resetElevator()));
     // L4
     buttonBox
         .button(9)
-        .whileTrue(wrist.posWrist(wrist, 176.0).alongWith(elevator.posElevator(elevator, 15150.0)));
+        .whileTrue(
+            wrist
+                .posWrist(wrist, Setpoints.L4_REEF.getWristPos())
+                .alongWith(elevator.posElevator(elevator, Setpoints.L4_REEF.getElevatorPos())));
     // for testing sourc
     buttonBox
         .button(7)
-        .whileTrue(wrist.posWrist(wrist, 100.0).alongWith(elevator.posElevator(elevator, 4350.0)));
+        .whileTrue(
+            wrist
+                .posWrist(wrist, Setpoints.SOURCE.getWristPos())
+                .alongWith(elevator.posElevator(elevator, Setpoints.SOURCE.getWristPos())));
 
     // L1
     buttonBox
         .button(32)
-        .whileTrue(wrist.posWrist(wrist, 110.0).alongWith(elevator.posElevator(elevator, 1450.0)));
+        .whileTrue(
+            wrist
+                .posWrist(wrist, Setpoints.L1_REEF.getWristPos())
+                .alongWith(elevator.posElevator(elevator, Setpoints.L1_REEF.getElevatorPos())));
     controller.pov(270).whileTrue(wrist.posWrist(wrist, 100.0));
 
     // Manual Elevator control
