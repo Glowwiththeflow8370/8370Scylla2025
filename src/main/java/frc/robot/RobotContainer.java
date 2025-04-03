@@ -118,8 +118,16 @@ public class RobotContainer {
                 .withTimeout(1),
             intake.RunIntakeCommand(intake, () -> IntakeConstants.OutTakeRunValue).withTimeout(3),
             DriveCommands.BasicDrive(drive, -0.2, 0).withTimeout(0.5)));
-    // Manual Auto (L4 Score?)
-
+    // Manual Auto (L2 Score?)
+    autoChooser.addOption(
+        "Manual L2 Auto",
+        new SequentialCommandGroup(
+            DriveCommands.BasicDrive(drive, 0.5, 0).withTimeout(0.7),
+            DriveCommands.BasicDrive(drive, 0, 0).withTimeout(0),
+            (wrist.posWrist(wrist, 166.0).alongWith(elevator.posElevator(elevator, 5750.0)))
+                .withTimeout(1),
+            intake.RunIntakeCommand(intake, () -> IntakeConstants.OutTakeRunValue).withTimeout(3),
+            DriveCommands.BasicDrive(drive, -0.2, 0).withTimeout(0.5)));
     // Set up SysId routines
     autoChooser.addOption(
         "Drive Simple FF Characterization", DriveCommands.feedforwardCharacterization(drive));
@@ -182,27 +190,27 @@ public class RobotContainer {
     // L3
     buttonBox
         .button(17)
-        .whileTrue(wrist.posWrist(wrist, 135.0).alongWith(elevator.posElevator(elevator, 9000.0)));
+        .whileTrue(wrist.posWrist(wrist, 166.0).alongWith(elevator.posElevator(elevator, 9000.0)));
     controller.pov(270).whileTrue(wrist.posWrist(wrist, 100.0));
     // L2
     buttonBox
         .button(25)
-        .whileTrue(wrist.posWrist(wrist, 135.0).alongWith(elevator.posElevator(elevator, 5750.0)));
+        .whileTrue(wrist.posWrist(wrist, 166.0).alongWith(elevator.posElevator(elevator, 5750.0)));
 
     controller.start().whileTrue(new InstantCommand(() -> elevator.resetElevator()));
     // L4
     buttonBox
         .button(9)
-        .whileTrue(wrist.posWrist(wrist, 140.0).alongWith(elevator.posElevator(elevator, 15150.0)));
+        .whileTrue(wrist.posWrist(wrist, 176.0).alongWith(elevator.posElevator(elevator, 15150.0)));
     // for testing sourc
     buttonBox
         .button(7)
-        .whileTrue(wrist.posWrist(wrist, 80.0).alongWith(elevator.posElevator(elevator, 4350.0)));
+        .whileTrue(wrist.posWrist(wrist, 100.0).alongWith(elevator.posElevator(elevator, 4350.0)));
 
     // L1
     buttonBox
         .button(32)
-        .whileTrue(wrist.posWrist(wrist, 100.0).alongWith(elevator.posElevator(elevator, 1450.0)));
+        .whileTrue(wrist.posWrist(wrist, 110.0).alongWith(elevator.posElevator(elevator, 1450.0)));
     controller.pov(270).whileTrue(wrist.posWrist(wrist, 100.0));
 
     // Manual Elevator control

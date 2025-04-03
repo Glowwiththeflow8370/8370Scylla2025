@@ -4,7 +4,7 @@ public enum Setpoints {
   // Discount looged numbers lol
   // Should now be set up for "easier"
   // setpoint setup (probs not needed tho lol)
-  IDLE(6000.0, 35.0),
+  IDLE(2000.0, 35.0),
   SOURCE(4350.0, 80.0),
   L1_REEF(1450.0, 100.0),
   L2_REEF(5750.0, 135.0),
